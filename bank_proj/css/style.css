@@ -1,0 +1,84 @@
+/* Reset básico para garantir uma base consistente entre navegadores */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilização do container de links do menu superior */
+.container-link {
+    display: flex;
+    gap: 15px;
+    background-color: #2c3e50;
+    padding: 10px;
+}
+
+.container-link a {
+    color: #ecf0f1;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.container-link a:hover {
+    color: #3498db;
+}
+
+/* Estilização do formulário de transferência */
+form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #bdc3c7;
+    border-radius: 8px;
+    background-color: #ecf0f1;
+}
+
+form h2 {
+    margin-bottom: 20px;
+    color: #34495e;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #bdc3c7;
+    border-radius: 5px;
+}
+
+form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #2ecc71;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+form button:hover {
+    background-color: #27ae60;
+}
+
+/* Estilização da notificação */
+.notification {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 15px;
+    background-color: #2ecc71;
+    color: white;
+    border-radius: 5px;
+    text-align: center;
+    display: none;
+}
+
+.notification.error {
+    background-color: #e74c3c;
+}
+
+.notification.show {
+    display: block;
+}
