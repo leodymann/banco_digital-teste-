@@ -7,7 +7,7 @@ if(!isset($_SESSION['user_id'])){
 
 $userName = $_SESSION['user_name'];
 $userId = $_SESSION['user_id'];
-//futuramente puxarei o saldo tb
+//futuramente puxarei o saldo tambem
 ?>
 
 <!DOCTYPE html>

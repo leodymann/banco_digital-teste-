@@ -9,7 +9,6 @@
 <body>
 <form action="/banco_digital/bank_proj/controllers/register_controller.php" method="post" class="form-container">
     <h2>register bank</h2>
-<!-- recebe id do user conectado-->
     <div>
         <input
         type="text"
@@ -17,7 +16,6 @@
         placeholder="your name"
         required
         >
-    <!--exibe o saldo-->
         <input
         type="email"
         name="email_user"
@@ -31,16 +29,7 @@
         placeholder="enter your password"
         required>
     </div>
-    <!-- recebe o valor da transfer-->
-    <!-- <input
-    type="number"
-    step="0.01"
-    name="valor"
-    placeholder="value transfer"
-    required
-    > -->
-
-    <!-- confirmar transfer-->
+    <!-- confirmar register-->
     <button type="submit">register</button>
 </form>
 </body>

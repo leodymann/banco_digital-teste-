@@ -7,7 +7,9 @@ if(!isset($_SESSION['user_id'])){
 
 $userName = $_SESSION['user_name'];
 $userId = $_SESSION['user_id'];
-//futuramente puxarei o saldo tb
+//futuramente puxarei o saldo tambem
+
+    //echo pra saber o caminho absoluto, estava com bastante erros relacionado a caminhos
     //echo "Caminho atual: " . __DIR__;
     if(isset($_SESSION['mensagem'])){
         echo "<div class='notification'>" . $_SESSION['mensagem'] . "</div>";

@@ -40,7 +40,7 @@ class TransferController{
                 //registra a transação no banco
                 Transaction::create($remetente, $destinatario, $valor);
 
-                //confirma a transação
+                //confirma a transacão
                 $pdo->commit();
 
                 //notificação de success

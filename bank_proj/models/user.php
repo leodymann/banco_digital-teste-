@@ -4,7 +4,7 @@ namespace Models;
 require_once 'database.php';
 
 use Models\Database;
-use \PDO; // <- Correção para usar o namespace global do PDO
+use \PDO; // <- Correção para usar o namespace global do PDO ocasionando alguns erros, ja corrigido
 
 class User {
 

@@ -3,7 +3,7 @@ session_start();
 require_once '../models/user.php';
 use Models\User;
 
-// Verifica se o script está sendo executado
+// Verifica se o script está sendo executado.
 echo "🔍 Script iniciado.<br>";
 
 // Verifica se o form foi enviado corretamente
