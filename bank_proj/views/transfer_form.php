@@ -1,14 +1,14 @@
 <?php
-session_start();
-if(!isset($_SESSION['user_id'])){
-    header('Location: login_form.php');
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+if (!isset($_SESSION['user_id'])) {
+    header('Location: /banco_digital/bank_proj/views/login_form.php');
     exit();
 }
 
 $userName = $_SESSION['user_name'];
 $userId = $_SESSION['user_id'];
-//futuramente puxarei o saldo tambem
-
     //echo pra saber o caminho absoluto, estava com bastante erros relacionado a caminhos
     //echo "Caminho atual: " . __DIR__;
     if(isset($_SESSION['mensagem'])){
@@ -19,8 +19,7 @@ $userId = $_SESSION['user_id'];
 <head>
     <link rel="stylesheet" href="/banco_digital/bank_proj/css/style.css">
     <div class="container-link">
-        <a href="/banco_digital/bank_proj/views/dashboard.php">dash</a>
-        <a href="/banco_digital/bank_proj/views/balance_view.php">view balance</a>
+        <a href="/banco_digital/bank_proj/views/dashboard.php">dashboard</a>
         <a href="/banco_digital/bank_proj/controllers/logout.php">logout</a>
     </div>
 </head>
