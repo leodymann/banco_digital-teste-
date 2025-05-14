@@ -3,7 +3,7 @@ require_once '../models/database.php';
 require_once '../models/user.php';
 
 use Models\User;
-
+//busca e retorna dados do user no database
 if(isset($_GET['user_id'])){
     $userId = $_GET['user_id'];
     $user = User::findById($userId);

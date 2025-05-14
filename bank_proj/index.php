@@ -9,7 +9,7 @@ session_start();
 //importei as classes necessarias
 use Controllers\TransferController;
 
-//inclui os arquivos mvc
+//inclui os arquivos MVC
 require_once 'models/database.php';
 require_once 'models/user.php';
 require_once 'models/transaction.php';

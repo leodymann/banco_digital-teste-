@@ -1,12 +1,12 @@
 <?php 
 session_start();
-//chamei as instancias para conexao e funções
+//chamei as instancias para conexao e funções.
 require_once '../models/user.php';
 require_once '../models/database.php';
 use Models\User;
 use Models\Database;
 
-//verificação se o form foi enviado
+//verificação se o form foi enviado.
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
     $nome = $_POST['nome_user'];
     $email = $_POST['email_user'];

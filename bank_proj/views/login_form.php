@@ -20,6 +20,7 @@ session_start();
         ?>
 
         <form action="../controllers/login_controller.php" method="post" class="form-container">
+            <h2>login bank</h2>
             <div>
                 <input
                 type="email"
@@ -37,10 +38,10 @@ session_start();
             <button type="submit">
                 login
             </button>
+            <div class="a-container">
+                <a href="/banco_digital/bank_proj/views/register_form.php">you not have one account?</a>
+            </div>
         </form>
-        <div>
-            <a href="/banco_digital/bank_proj/views/register_form.php">i have one account?</a>
-        </div>
     </div>
 </body>
 </html>

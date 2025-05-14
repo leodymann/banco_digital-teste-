@@ -1,7 +1,7 @@
 <?php 
 namespace Controllers;
 
-//importei classes e conexao
+//importei classes e conexao.
 use Models\User;
 use Exception;
 

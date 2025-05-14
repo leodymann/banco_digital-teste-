@@ -7,7 +7,7 @@ if(!isset($_SESSION['user_id'])){
 
 $userName = $_SESSION['user_name'];
 $userId = $_SESSION['user_id'];
-//futuramente puxarei o saldo tb
+//futuramente puxarei o saldo tambem
 
 require_once '../models/database.php';
 require_once '../models/user.php';
@@ -48,8 +48,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     <title>your balance</title>
     <link rel="stylesheet" href="/banco_digital/bank_proj/css/style.css">
     <div class="container-link">
-        <a href="/banco_digital/bank_proj/views/dashboard.php">dash</a>
-        <a href="/banco_digital/bank_proj/views/transfer_form.php">transfers</a>
+        <a href="/banco_digital/bank_proj/views/dashboard.php">dashboard</a>
         <a href="/banco_digital/bank_proj/controllers/logout.php">logout</a>
     </div>
 </head>

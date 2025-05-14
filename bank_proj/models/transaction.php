@@ -5,14 +5,14 @@ use Models\Database;
 class Transaction{
     //metodo estatico para criar uma nova transacao no banco
     public static function create($remetente, $destinatario, $valor){
-        //obter a conexao com o banco
+        //obtem a conexao com o banco
         $pdo = Database::getConnection();
 
         //busca o ultimo hash registrado
         $stmt = $pdo->query("SELECT hash FROM transacoes ORDER BY id DESC LIMIT 1");
         $prev_hash = $stmt->fetchColumn() ?: "0";
 
-        //define o fuso para UTC e captura a data atual
+        //defini o fuso e captura a data atual
         date_default_timezone_set('America/Sao_Paulo');
         $data_atual = date('Y-m-d H:i:s');
 
