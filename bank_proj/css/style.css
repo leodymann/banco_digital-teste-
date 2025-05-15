@@ -6,7 +6,7 @@
     font-family: Arial, sans-serif;
 }
 body{
-    background-color: #3c3852;
+    background-color: #4a47a3;
 }
 /* Estilização do container de links do menu superior */
 .container-link {
@@ -112,7 +112,7 @@ input[type="number"]::-webkit-inner-spin-button {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 400px;
     margin: 50px auto;
-    margin-top: -10px;
+    margin-top: 50px;
 }
 .a-container{
     margin-top: 18px;
