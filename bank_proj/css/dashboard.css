@@ -1,6 +1,6 @@
 
 *{
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
 }
 body {
     background-color: #f4f7fa;
@@ -25,7 +25,7 @@ header.dashboard-header {
 }
 
 .header-content h1 {
-    font-size: 1.8em;
+    font-size: 1.0em;
     margin: 0;
 }
 
@@ -92,7 +92,7 @@ footer.dashboard-footer {
     color: white;
     text-align: center;
     padding: 11px 0;
-    margin-top: 400px;
+    margin-top: 415px;
     position: relative;
     bottom: 0;
     width: 100%;

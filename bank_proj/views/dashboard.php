@@ -35,8 +35,10 @@ if ($user) {
 <body>
     <header class="dashboard-header">
         <div class="header-content">
-            <h1>welcome, @<?php echo $userName; ?>!</h1>
+            <h1>welcome, @<?php echo htmlspecialchars($userName);
+ ?>!</h1>
             <nav>
+                <a href="statement_view.php">statement</a>
                 <a href="deposit_form.php">deposit</a>
                 <a href="transfer_form.php">transfer</a>
                 <a href="/banco_digital/bank_proj/views/balance_view.php">balance</a>

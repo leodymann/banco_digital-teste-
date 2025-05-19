@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['valor']) && is_numeri
         $_SESSION['deposit_value'] = number_format($valor, 2, ',', '.'); // valor depositado formatado
         $_SESSION['feedbackMessage'] = "Deposit Successful!";
 
-        //redirecionamento, evita envios duplos do form
+        //redirecionamento, evitando envios duplos do form
         header("Location: deposit_form.php");
         exit();
     } else {
@@ -54,7 +54,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['valor']) && is_numeri
 }
 
 ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -68,7 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['valor']) && is_numeri
     <header class="dashboard-header">
         <div class="header-content">
             <nav>
-                <a href="/banco_digital/bank_proj/views/dashboard.php">home</a>
+                <a href="/banco_digital/bank_proj/views/dashboard.php">dashboard</a>
+                <a href="/banco_digital/bank_proj/views/transfer_form.php">transfer</a>
+                <a href="/banco_digital/bank_proj/viiews/balance_view.php">balance</a>
+                <a href="/banco_digital/bank_proj/views/statement_view.php">statement</a>
                 <a href="/banco_digital/bank_proj/controllers/logout.php">logout</a>
             </nav>
         </div>
