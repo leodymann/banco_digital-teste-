@@ -35,12 +35,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($user) {
         echo "user found: " . print_r($user, true) . "<br>";
-
+        
         if (password_verify($senha, $user['senha'])) {
             echo "correct password, starting session.<br>";
             
             //Cria sessão e armazena esses parâmetros
             //Creates session and stores these parameters
+            $_SESSION['user'] = [
+                'user_id' => $user['id'],
+                'user_name' => $user['nome'],
+                'user_balance' => $user['saldo'],
+                'is_admin' => $user['is_admin'],  // Garanta que esse campo exista na query SQL de User::findByEmail()
+            ];
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['nome'];
             $_SESSION['user_balance'] = $user['saldo'];

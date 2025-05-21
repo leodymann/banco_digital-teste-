@@ -35,6 +35,9 @@ $totalPages = ceil($totalTransactions / $limit);
             <h1>transaction statement</h1>
             <nav>
                 <a href="dashboard.php">dashboard</a>
+                <a href="painel_integridade.php">integrity</a>
+                <a href="blockchain_view.php">block</a>
+                <a href="balance_view.php">balance</a>
                 <a href="deposit_form.php">deposit</a>
                 <a href="transfer_form.php">transfer</a>
                 <a href="/banco_digital/bank_proj/controllers/logout.php">logout</a>

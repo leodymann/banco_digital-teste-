@@ -3,7 +3,6 @@ namespace Models;
 
 use Models\Database;
 use PDO;
-
 class Transaction {
     // Conta transações de um usuário
     // Counts transactions for a user
@@ -39,22 +38,76 @@ class Transaction {
     public static function create($remetente, $destinatario, $valor) {
         $pdo = Database::getConnection();
 
-        // Buscar último hash
-        // Fetch last hash
-        $prevHashStmt = $pdo->query("SELECT hash FROM transacoes ORDER BY id DESC LIMIT 1");
-        $prevHash = $prevHashStmt->fetchColumn() ?: '';
+        try {
+            $data = date('Y-m-d H:i:s');
 
-        // Gerar novo hash
-        // Generate new hash
-        $data = date('Y-m-d H:i:s');
-        $conteudo = $remetente . $destinatario . $valor . $data . $prevHash;
-        $hash = hash('sha256', $conteudo);
+            // Buscar último bloco
+            $stmt = $pdo->query("SELECT * FROM blocos ORDER BY id DESC LIMIT 1");
+            $bloco = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // Inserir transação
-        // Insert transaction
-        $stmt = $pdo->prepare("INSERT INTO transacoes (remetente_id, destinatario_id, valor, data_data, hash, prev_hash)
-                               VALUES (?, ?, ?, ?, ?, ?)");
-        return $stmt->execute([$remetente, $destinatario, $valor, $data, $hash, $prevHash]);
+            $blocoComEspaco = false;
+            $blocoId = null;
+            $prevBlockHash = '';
+
+            if ($bloco) {
+                // Verifica quantas transações já estão no bloco
+                $stmt = $pdo->prepare("SELECT COUNT(*) FROM transacoes WHERE bloco_id = ?");
+                $stmt->execute([$bloco['id']]);
+                $qtd = $stmt->fetchColumn();
+
+                if ($qtd < 5) {
+                    $blocoComEspaco = true;
+                    $blocoId = $bloco['id'];
+                    $prevBlockHash = $bloco['prev_hash'] ?? '';
+                } else {
+                    $prevBlockHash = $bloco['hash'];
+                }
+            }
+
+            // Se não houver bloco com espaço, criar novo bloco com hash temporário
+            if (!$blocoComEspaco) {
+                $criadoEm = $data;
+                $hashTemporario = '';
+                $stmt = $pdo->prepare("INSERT INTO blocos (hash, prev_hash, criado_em) VALUES (?, ?, ?)");
+                $stmt->execute([$hashTemporario, $prevBlockHash, $criadoEm]);
+                $blocoId = $pdo->lastInsertId();
+            }
+
+            // Buscar último hash de transação
+            $prevHashStmt = $pdo->query("SELECT hash FROM transacoes ORDER BY id DESC LIMIT 1");
+            $prevHash = $prevHashStmt->fetchColumn() ?: '';
+
+            // Criar hash da transação
+            $conteudo = $remetente . $destinatario . $valor . $data . $prevHash;
+            $hash = hash('sha256', $conteudo);
+
+            // Inserir a transação
+            $stmt = $pdo->prepare("INSERT INTO transacoes (remetente_id, destinatario_id, valor, data_data, hash, prev_hash, bloco_id)
+                                VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$remetente, $destinatario, $valor, $data, $hash, $prevHash, $blocoId]);
+
+            // Recalcular hash do bloco
+            $stmt = $pdo->prepare("SELECT hash FROM transacoes WHERE bloco_id = ? ORDER BY id");
+            $stmt->execute([$blocoId]);
+            $hashes = $stmt->fetchAll(PDO::FETCH_COLUMN);
+
+            $conteudoDoBloco = implode('', $hashes);
+            $novoHashDoBloco = hash('sha256', $conteudoDoBloco);
+
+            // Atualizar hash do bloco
+            $update = $pdo->prepare("UPDATE blocos SET hash = ? WHERE id = ?");
+            $update->execute([$novoHashDoBloco, $blocoId]);
+
+            return true;
+
+        } catch (\Exception $e) {
+            error_log("Erro ao criar transação e atualizar bloco: " . $e->getMessage());
+            return false;
+        }
     }
+
+
+
+
 }
 ?>

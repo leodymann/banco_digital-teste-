@@ -1,12 +1,16 @@
-
-*{
-    font-family: 'Arial', sans-serif;
-}
-body {
-    background-color: #f4f7fa;
+* {
     margin: 0;
     padding: 0;
-    color: #333;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f7fa;
 }
 
 header.dashboard-header {
@@ -87,18 +91,12 @@ main.dashboard-main {
     margin: 10px 0;
 }
 
-footer.dashboard-footer {
+footer{
     background-color: #4a47a3;
     color: white;
     text-align: center;
-    padding: 11px 0;
-    margin-top: 415px;
-    position: relative;
-    bottom: 0;
-    width: 100%;
-}
-
-footer p {
-    margin: 0;
+    padding: 15px 0;
     font-size: 0.9em;
+    margin-top: auto;
+    width: 100%;
 }

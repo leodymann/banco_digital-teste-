@@ -15,11 +15,16 @@ require_once '../controllers/deposit_controller.php';
 
 $depositController = new DepositController();
 //obtem o id do user pela session
+//get the user id from the session
 $userId = $_SESSION['user_id'];
+
 //busca o user no banco para retornar email e saldo
+//search for the user in the database to return email and balance
 $user = User::findById($userId);
-// busca para obter info do user {saldo, email}
-if ($user) { // verifica se as info estao corretas
+
+//busca para obter info do user {saldo, email}
+// search to get user info {balance, email}
+if ($user) { //verifica se as info estao corretas || check if the information is correct
     $userEmail = $user['email'] ?? "email not found";
     $saldo = $user['saldo'];
 } else { // user not found
@@ -28,10 +33,12 @@ if ($user) { // verifica se as info estao corretas
 }
 
 //parte do processo do deposito
+//part of the deposit process
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['valor']) && is_numeric($_POST['valor'])) {
     $valor = (float)$_POST['valor'];
 
     //realiza o deposito, e retorna um hash
+    //makes the deposit, and returns a hash
     $transactionHash = $depositController->deposit($userId, $valor);
 
     if ($transactionHash) {
@@ -43,11 +50,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['valor']) && is_numeri
         $_SESSION['feedbackMessage'] = "Deposit Successful!";
 
         //redirecionamento, evitando envios duplos do form
+        //redirection, avoiding double submissions of the form
         header("Location: deposit_form.php");
         exit();
     } else {
         $_SESSION['feedbackMessage'] = "Deposit Failed!";
         // redirecionamento, exibindo erros
+        // redirection, displaying errors
         header("Location: deposit_form.php");
         exit();
     }
@@ -66,8 +75,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['valor']) && is_numeri
 <body>
     <header class="dashboard-header">
         <div class="header-content">
+            <h1>deposits</h1>
             <nav>
                 <a href="/banco_digital/bank_proj/views/dashboard.php">dashboard</a>
+                <a href="painel_integridade.php">integrity</a>
+                <a href="blockchain_view.php">block</a>
                 <a href="/banco_digital/bank_proj/views/transfer_form.php">transfer</a>
                 <a href="/banco_digital/bank_proj/viiews/balance_view.php">balance</a>
                 <a href="/banco_digital/bank_proj/views/statement_view.php">statement</a>

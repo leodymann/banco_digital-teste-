@@ -1,0 +1,113 @@
+/* blockchain.css */
+
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    padding: 20px;
+    color: #333;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+header h1 {
+    font-size: 2em;
+    color: #2c3e50;
+}
+
+header a {
+    display: inline-block;
+    margin-top: 10px;
+    color: #3498db;
+    text-decoration: none;
+}
+
+.blockchain-container {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 40px;
+    position: relative;
+}
+
+/* Linha de conexão entre os blocos */
+.blockchain-container::before {
+    content: '';
+    position: absolute;
+    top: 60px;
+    left: 0;
+    height: 4px;
+    width: 100%;
+    background-color: #bdc3c7;
+    z-index: 0;
+}
+
+/* Bloco individual */
+.block {
+    flex: 0 0 auto;
+    width: 300px;
+    margin-right: 40px;
+    background-color: #ffffff;
+    border: 2px solid #2980b9;
+    border-radius: 10px;
+    padding: 20px;
+    position: relative;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+/* Conector de bloco */
+.block::after {
+    content: '➝';
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2em;
+    color: #2980b9;
+}
+
+/* Remove seta do último bloco */
+.block:last-child::after {
+    display: none;
+}
+
+.block h2 {
+    font-size: 1.2em;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.block p {
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: #555;
+    word-wrap: break-word;     /* Força quebra de palavras longas */
+    overflow-wrap: break-word; /* Compatível com mais navegadores */
+    white-space: normal;       /* Garante que o texto possa quebrar linha */
+    max-width: 100%;           /* Limita largura ao tamanho do bloco */
+}
+
+
+.block h3 {
+    margin-top: 15px;
+    margin-bottom: 5px;
+    font-size: 1em;
+    color: #2c3e50;
+}
+
+.block ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    color: #444;
+    font-size: 0.9em;
+}

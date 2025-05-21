@@ -36,8 +36,11 @@ if ($user) { //verifica se as info sao existentes
 
 <header class="dashboard-header">
     <div class="header-content">
+        <h1>your balance</h1>
         <nav>
             <a href="/banco_digital/bank_proj/views/dashboard.php">home</a>
+            <a href="/banco_digital/bank_proj/views/painel_integridade.php">integrity</a>
+            <a href="/banco_digital/bank_proj/views/blockchain_view.php">block</a>
             <a href="/banco_digital/bank_proj/views/deposit_form.php">deposit</a>
             <a href="/banco_digital/bank_proj/views/transfer_form.php">transfer</a>
             <a href="/banco_digital/bank_proj/views/statement_view.php">statement</a>

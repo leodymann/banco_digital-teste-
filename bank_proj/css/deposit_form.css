@@ -1,39 +1,40 @@
-/* Reset básico */
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
     font-family: 'Arial', sans-serif;
 }
+
 body {
-    margin: 0;
-    background-color: #f4f7fa;
-    color: #333;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-
+    margin: 0;
+    background-color: #f4f7fa;
 }
 
+/* Header */
 header.dashboard-header {
     background-color: #4a47a3;
     color: white;
     padding: 15px 0;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: relative;
 }
 
 .header-content {
     width: 90%;
     margin: 0 auto;
     display: flex;
-    justify-content: flex-end;
-    gap: 20px;
+    justify-content: space-between;
+    align-items: center;
 }
 
-header nav {
-    display: flex;
-    gap: 15px;
+h1 {
+    font-size: 1.0em;
 }
+
 header nav a {
+    margin-left: 20px;
     color: white;
     text-decoration: none;
     font-weight: bold;
