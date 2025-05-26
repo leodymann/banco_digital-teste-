@@ -1,6 +1,6 @@
 # Banco Digital com Blockchain Simplificada // Digital Banking with Simplified Blockchain <br>
 
-## Tittle@Título<br>
+## Title@Título<br>
 > **"Simulação de BLOCKCHAIN com foco na IMUTABILIDADE das transações."**<br>
 > **"BLOCKCHAIN ​​simulation focusing on the IMMUTABILITY of transactions."**<br>
 ---
