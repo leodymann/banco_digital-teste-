@@ -3,60 +3,70 @@ session_start();
 require_once '../models/user.php';
 use Models\User;
 
-// Verifica se o script está sendo executado.
-echo "🔍 Script iniciado.<br>";
 
-// Verifica se o form foi enviado corretamente
+//verifica se o form foi enviado corretamente
+//checks if the form was submitted correctly
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo "✅ Método POST detectado.<br>";
+    echo "method is post.<br>";
 
-    // Verifica os valores recebidos
+    // verifica os valores recebidos
+    // checks the received values
     if (isset($_POST['email_user']) && isset($_POST['pass_user'])) {
         $email = $_POST['email_user'];
         $senha = $_POST['pass_user'];
 
-        echo "📩 Dados recebidos - Email: $email, Senha: [OCULTA].<br>";
+        echo "data received - Email: $email, Senha: [OCULTA].<br>";
     } else {
-        echo "❌ Campos de email ou senha não foram preenchidos.<br>";
+        echo "email or password fields were not filled in.<br>";
         $_SESSION['mensagem'] = 'Preencha todos os campos!';
         exit();
     }
 
-    // Verifica se o usuário existe
-    echo "🔎 Procurando usuário no banco...<br>";
+    //verifica se o user existe
+    //check if the user exists
+    echo "looking for user in the bank...<br>";
     $user = User::findByEmail($email);
 
-    // Adicionei um var_dump para verificar o conteúdo:
-    echo "🔎 Resultado da busca: ";
+    //var_dump para verificar o conteúdo:
+    //var_dump to check the contents:
+    echo "search result: ";
     var_dump($user);
     echo "<br>";
 
     if ($user) {
-        echo "✅ Usuário encontrado: " . print_r($user, true) . "<br>";
-
+        echo "user found: " . print_r($user, true) . "<br>";
+        
         if (password_verify($senha, $user['senha'])) {
-            echo "🔓 Senha correta, iniciando sessão.<br>";
+            echo "correct password, starting session.<br>";
             
-            // Cria sessão
+            //Cria sessão e armazena esses parâmetros
+            //Creates session and stores these parameters
+            $_SESSION['user'] = [
+                'user_id' => $user['id'],
+                'user_name' => $user['nome'],
+                'user_balance' => $user['saldo'],
+                'is_admin' => $user['is_admin'],  // Garanta que esse campo exista na query SQL de User::findByEmail()
+            ];
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['user_name'] = $user['nome'];
+            $_SESSION['user_balance'] = $user['saldo'];
 
-            echo "✅ Sessão criada com sucesso!<br>";
-            echo "🟢 Redirecionamento para o dashboard estaria aqui...<br>";
+            echo "session created successfully!<br>";
+            echo "redirection to dashboard would be here...<br>";
             header('Location: ../views/dashboard.php');
             exit();
         } else {
-            echo "❌ Senha incorreta para o usuário: $email<br>";
+            echo "incorrect passw: $email<br>";
             $_SESSION['mensagem'] = 'Senha incorreta.';
             exit();
         }
     } else {
-        echo "❌ Usuário não encontrado para o email: $email<br>";
+        echo "user not found for email: $email<br>";
         $_SESSION['mensagem'] = 'Usuário não encontrado.';
         exit();
     }
 } else {
-    echo "⚠️ Método não permitido: " . $_SERVER['REQUEST_METHOD'] . "<br>";
+    echo "method not allowed: " . $_SERVER['REQUEST_METHOD'] . "<br>";
     exit();
 }
 ?>

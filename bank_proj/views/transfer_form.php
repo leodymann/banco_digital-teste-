@@ -7,114 +7,153 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
+// obtem o id e o name do user
 $userName = $_SESSION['user_name'];
 $userId = $_SESSION['user_id'];
-    //echo pra saber o caminho absoluto, estava com bastante erros relacionado a caminhos
-    //echo "Caminho atual: " . __DIR__;
-    if(isset($_SESSION['mensagem'])){
-        echo "<div class='notification'>" . $_SESSION['mensagem'] . "</div>";
-        unset($_SESSION['mensagem']); // limpa a mensagem apos exibir
-    }
+
+// exibe uma mensagem da sessão, caso exista
+if (isset($_SESSION['mensagem'])) {
+    $mensagem = $_SESSION['mensagem'];
+    unset($_SESSION['mensagem']); // limpa a mensagem após exibir
+} else {
+    $mensagem = '';
+}
 ?>
+<!DOCTYPE html>
+<html lang="pt-br">
 <head>
-    <link rel="stylesheet" href="/banco_digital/bank_proj/css/style.css">
-    <div class="container-link">
-        <a href="/banco_digital/bank_proj/views/dashboard.php">dashboard</a>
-        <a href="/banco_digital/bank_proj/controllers/logout.php">logout</a>
-    </div>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="/banco_digital/bank_proj/css/transfer_form.css">
+    <title>Transfer Form</title>
 </head>
+<body>
+    <header class="dashboard-header">
+        <div class="header-content">
+            <h1>transfer</h1>
+            <nav>
+                <a href="/banco_digital/bank_proj/views/dashboard.php">dashboard</a>
+                <a href="/banco_digital/bank_proj/views/painel_integridade.php">integrity</a>
+                <a href="/banco_digital/bank_proj/views/blockchain_view.php">block</a>
+                <a href="/banco_digital/bank_proj/views/statement_view.php">statement</a>
+                <a href="/banco_digital/bank_proj/views/balance_view.php">balance</a>
+                <a href="/banco_digital/bank_proj/views/deposit_form.php">deposit</a>
+                <a href="/banco_digital/bank_proj/controllers/logout.php">logout</a>
+            </nav>
+        </div>
+    </header>
 
-<!-- inicio do form de transação-->
+<?php if ($mensagem): ?>
+    <div class="notification"><?= htmlspecialchars($mensagem) ?></div>
+<?php endif; ?>
 
-<form action="index.php" method="post" class="form-container">
-    <h2>transfer bank</h2>
-<!-- recebe id do user conectado-->
-<div>
-    <input
-    type="number"
-    name="remetente_id"
-    placeholder="your id"
-    required
-    oninput="fetchUserInfo(this.value, 'remetente')"
-    >
-<!-- exibe nome do user conectado-->
-    <input
-    type="text"
-    id="remetente_name"
-    placeholder="sender name"
-    readonly>
+<form action="/banco_digital/bank_proj/index.php" method="post" class="form-container" id="transferForm">
+    <h2>Transfer Bank</h2>
 
-<!--exibe o saldo-->
-    <input
-    type="text"
-    id="remetente_saldo"
-    placeholder="sender balance"
-    readonly>
- </div>
-<!-- recebe id do user que irá receber-->
-<div>
-    <input
-     type="number"
-     name="destinatario_id"
-     placeholder="other id"
-     required
-     oninput="fetchUserInfo(this.value, 'destinatario')"
-     >
-    <!--exibe name do user final-->
-    <input
-    type="text"
-    id="destinatario_name"
-    placeholder="recipient name"
-    readonly>
-    <!--exibe o saldo o user final kkkk fds a segurança vou mostrar o saldo dos outros-->
-    <input
-    type="text"
-    id="destinatario_saldo"
-    placeholder="recipient balance"
-    readonly>
-</div> 
-<!-- recebe o valor da transfer-->
- <input
- type="number"
- step="0.01"
- name="valor"
- placeholder="value transfer"
- required
- >
+    <div>
+        <input 
+            type="number" 
+            name="remetente_id" 
+            value="<?= $userId ?>" 
+            readonly 
+        />
+        <input 
+            type="text" 
+            id="remetente_name" 
+            placeholder="Sender name" 
+            value="<?= $userName ?>" 
+            readonly 
+        />
+    </div>
 
-<!-- confirmar transfer-->
- <button type="submit">transfer</button>
+    <div>
+        <input 
+            type="number" 
+            name="destinatario_id" 
+            placeholder="Other ID" 
+            required 
+            oninput="fetchUserInfo(this.value, 'destinatario')" 
+        />
+        <input 
+            type="text" 
+            id="destinatario_name" 
+            placeholder="Recipient name" 
+            readonly
+        />
+    </div>
+
+    <input 
+        type="number" 
+        step="0.01" 
+        name="valor" 
+        placeholder="Value transfer" 
+        required
+    />
+
+    <button 
+        type="button" 
+        onclick="confirmTransfer()">
+        Confirmar Transferência
+    </button>
+
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <h3>Confirmar Transferência</h3>
+            <p id="confirmText"></p>
+            <button 
+                onclick="submitForm()">
+                Confirmar
+            </button>
+            <button 
+                type="button" 
+                onclick="closeModal()">
+                Cancelar
+            </button>
+        </div>
+    </div>
 </form>
+<footer>
+    &copy; <?= date('Y') ?> Banco Digital - Todos os direitos reservados.
+</footer>
+<!-- Função para abrir pág. modal e confirmar/cancelar a transação -->
 <script>
-    function fetchUserInfo(userId, type) {
-        if (userId !== '') {
-            fetch(`/banco_digital/bank_proj/views/fetch_user_info.php?user_id=${userId}`)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error("Erro ao buscar usuário.");
-                }
-                return response.json();
-            })
-            .then(data => {
-                if (type === 'remetente') {
-                    document.getElementById('remetente_name').value = data.nome;
-                    document.getElementById('remetente_saldo').value = `R$ ${data.saldo}`;
-                } else {
-                    document.getElementById('destinatario_name').value = data.nome;
-                    document.getElementById('destinatario_saldo').value = `R$ ${data.saldo}`;
-                }
-            })
-            .catch(error => {
-                console.error('Usuário não encontrado:', error);
-            });
-        } else {
-            if (type === 'remetente') {
-                document.getElementById('remetente_name').value = '';
-                document.getElementById('remetente_saldo').value = '';
-            } else {
-                document.getElementById('destinatario_name').value = '';
-                document.getElementById('destinatario_saldo').value = '';
+function fetchUserInfo(userId, type) {
+    if (userId !== '') {
+        fetch(`/banco_digital/bank_proj/views/fetch_user_info.php?user_id=${userId}`)
+        .then(response => response.json())
+        .then(data => {
+            if (type === 'destinatario') {
+                document.getElementById('destinatario_name').value = data.nome;
             }
-        }
+        }).catch(error => console.error('Usuário não encontrado:', error));
     }
+}
+//confirma a transação pelo modal
+function confirmTransfer() {
+    const recipientName = document.getElementById('destinatario_name').value;
+    const amount = document.querySelector('input[name="valor"]').value;
+    if (recipientName && amount) {
+        document.getElementById('confirmText').innerText = `Deseja transferir R$ ${amount} para ${recipientName}?`;
+        document.getElementById('confirmModal').style.display = 'block';
+    }
+}
+
+document.getElementById('confirmModal').style.display = 'none';
+//cancela a transfer e fecha o modal
+function closeModal() {
+    document.getElementById('confirmModal').style.display = 'none';
+}
+
+function submitForm() {
+    document.getElementById('confirmModal').style.display = 'none';
+    document.getElementById('transferForm').submit();
+}
+//proibe o envio do form ao apertar enter
+document.getElementById('transferForm').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+        event.preventDefault(); // cancela o envio
+    }
+});
 </script>
+</body>
+</html>

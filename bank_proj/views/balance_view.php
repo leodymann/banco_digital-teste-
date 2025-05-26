@@ -1,97 +1,72 @@
-<?php 
+<?php
 session_start();
-if(!isset($_SESSION['user_id'])){
+if (!isset($_SESSION['user_id'])) {
     header('Location: login_form.php');
     exit();
 }
-
-$userName = $_SESSION['user_name'];
-$userId = $_SESSION['user_id'];
-//futuramente puxarei o saldo tambem
-
 require_once '../models/database.php';
 require_once '../models/user.php';
-
 use Models\User;
 
-//quebrei a cabeça com essa merda de post e get junto do $_SESSION - vai se fuder crl
-if($_SERVER['REQUEST_METHOD'] === 'POST'){
-    $userId = $_POST['user_id'];
+// obtem o id e o name do user
+$userName = $_SESSION['user_name'];
+$userId = $_SESSION['user_id'];
+$user = User::findById($userId); // função pra buscar id do user no banco
 
-    //busca o id do user no banco de dados
-    $user = User::findById($userId);
-
-    //verifica se existe e se foi recuperado corretamente
-    if($user){
-        $saldo = $user['saldo']; //obtem o saldo
-        $userName = isset($user['nome']) ? $user['nome'] : "user not found"; //obtem o nome
-
-        //exibo as info do user no front
-        $userInfo = [
-            'nome' => $userName,
-            'saldo' => "your balance $" . number_format($saldo, 2, ',', '.')
-        ];
-    } else {
-        //user nao encontrado
-        $userInfo = [
-            'nome' => "user not found",
-            'saldo' => "not balance"
-        ];
-    }
+// busca para obter info do user {saldo, nome e email} 
+if ($user) { //verifica se as info sao existentes
+    $saldo = $user['saldo'];
+    $userName = $user['nome'] ?? 'User not found';
+    $userEmail = $user['email'] ?? 'Email not found';
+} else { //user not found
+    $saldo = '0.00';
+    $userName = 'User not found';
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>your balance</title>
-    <link rel="stylesheet" href="/banco_digital/bank_proj/css/style.css">
-    <div class="container-link">
-        <a href="/banco_digital/bank_proj/views/dashboard.php">dashboard</a>
-        <a href="/banco_digital/bank_proj/controllers/logout.php">logout</a>
-    </div>
+    <title>Balance View</title>
+    <link rel="stylesheet" href="/banco_digital/bank_proj/css/balance_view.css">
 </head>
 <body>
-    
-    <!-- caminho absoluto pra evitar o envio do get ao inves do post quebrei a cabeça com essa porcaria de erro -->
-    <form action="/banco_digital/bank_proj/views/balance_view.php" method="post" class="form-container">
-        <h2>search your balance</h2>
-        <input
-        type="number"
-        name="user_id"
-        placeholder="enter your id"
-        required
-        >
 
-        <!--view info + saldo-->
-        <div>
-            <input
-            type="text"
-            id="user_name"
-            value="<?php echo isset($userInfo) ? $userInfo['nome'] : ''; ?>"
-            readonly
-            placeholder="Nome do usuário"
-            >
+<header class="dashboard-header">
+    <div class="header-content">
+        <h1>your balance</h1>
+        <nav>
+            <a href="/banco_digital/bank_proj/views/dashboard.php">home</a>
+            <a href="/banco_digital/bank_proj/views/painel_integridade.php">integrity</a>
+            <a href="/banco_digital/bank_proj/views/blockchain_view.php">block</a>
+            <a href="/banco_digital/bank_proj/views/deposit_form.php">deposit</a>
+            <a href="/banco_digital/bank_proj/views/transfer_form.php">transfer</a>
+            <a href="/banco_digital/bank_proj/views/statement_view.php">statement</a>
+            <a href="/banco_digital/bank_proj/controllers/logout.php">logout</a>
+        </nav>
+    </div>
+</header>
+
+<main class="balance-main">
+    <div class="balance-card">
+        <h2>Account Balance</h2>
+        <p>$<?php echo number_format($saldo, 2, ',', '.'); ?></p>
+        <div class="button-group">
+            <button onclick="window.location.href='/banco_digital/bank_proj/views/deposit_form.php'">
+                Deposit
+            </button>
+            <button onclick="window.location.href='/banco_digital/bank_proj/views/transfer_form.php'">
+                Transfer
+            </button>
         </div>
+    </div>
+</main>
 
-        <div>
-            <input
-            type="text"
-            id="user_balance"
-            value="<?php echo isset($userInfo) ? $userInfo['saldo'] : ''; ?>"
-            readonly
-            placeholder="Saldo"
-            >
-        </div>
+<footer>
+    &copy; <?= date('Y') ?> Banco Digital - Todos os direitos reservados.
+</footer>
 
-        <button
-        type="submit"
-        name="action"
-        value="ver_saldo"
-        >
-        view your balance
-        </button>
-    </form>
 </body>
 </html>

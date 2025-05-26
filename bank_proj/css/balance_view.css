@@ -1,0 +1,116 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f7fa;
+}
+
+/* Header */
+header.dashboard-header {
+    background-color: #4a47a3;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+h1 {
+    font-size: 1.0em;
+}
+
+header nav a {
+    margin-left: 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header nav a:hover {
+    color: #a0a0ff;
+}
+/* Main Content */
+main.balance-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 150px); /* Ajuste para ocupar a tela menos header e footer */
+}
+
+.balance-card {
+    width: 400px;
+    height: 250px;
+    background: linear-gradient(135deg, #4a47a3, #7671d3);
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    gap: 20px;
+}
+
+.balance-card:hover {
+    transform: translateY(-5px);
+}
+
+.balance-card h2 {
+    margin-bottom: 5px;
+    font-size: 24px;
+    color: white;
+}
+
+.balance-card p {
+    font-size: 36px;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Button Group */
+.button-group {
+    display: flex;
+    gap: 15px;
+}
+
+.button-group button {
+    background-color: #fff;
+    color: #4a47a3;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-group button:hover {
+    background-color: #d3d2f3;
+}
+
+/* Footer */
+footer {
+    background-color: #4a47a3;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9em;
+    margin-top: auto;
+    width: 100%;
+}

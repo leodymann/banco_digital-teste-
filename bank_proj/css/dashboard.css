@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #f4f7fa;
+}
+
+header.dashboard-header {
+    background-color: #4a47a3;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.header-content {
+    width: 90%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-content h1 {
+    font-size: 1.0em;
+    margin: 0;
+}
+
+header nav a {
+    margin-left: 20px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+header nav a:hover {
+    color: #a0a0ff;
+}
+
+main.dashboard-main {
+    width: 100%;
+    display: flex;
+    justify-content: center; /* centraliza horizontalmente */
+    align-items: center; /* centraliza verticalmente */
+    gap: 20px;
+}
+
+.card {
+    margin-top: 50px;
+    width: 300px; /* largura fixa */
+    height: 150px; /* altura fixa */
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0; /* evitar que encolha */
+}
+
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.balance-card {
+    background: linear-gradient(135deg, #4a47a3, #7671d3);
+    color: white;
+}
+
+.balance-card h2{
+    font-size: 20px;
+    margin: 0;
+    color: white;
+}
+.balance-card p{
+    margin: 0;
+    color: white;
+    font-weight: bold;
+    font-size: 40px;
+}
+
+.info-card p {
+    margin: 10px 0;
+}
+
+footer{
+    background-color: #4a47a3;
+    color: white;
+    text-align: center;
+    padding: 15px 0;
+    font-size: 0.9em;
+    margin-top: auto;
+    width: 100%;
+}
