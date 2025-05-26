@@ -2,7 +2,7 @@
 
 [Pt-Br]
 > **"Simulação de BLOCKCHAIN com foco na IMUTABILIDADE das transações."**<br>
-[En]
+[En] <br>
 > **"BLOCKCHAIN ​​simulation focusing on the IMMUTABILITY of transactions."**<br>
 ---
 
@@ -109,13 +109,18 @@
 ---
 
 ## Imagens // Images<br>
-
-![Dashboard](/bank_proj/images/dashboard.png) // Dashboard Panel
-![Extract](/bank_proj/images/extract.png) // Extract Panel
-![Transfer](/bank_proj/images/transfer.png) // Transfer Panel
-![Deposit](/bank_proj/images/deposit.png) // Deposit Panel
-![Balance](/bank_proj/images/balance.png) // Balance Panel
-![Blocks](/bank_proj/images/blocks.png) // Blocks Panel
+// Dashboard Panel
+![Dashboard](/bank_proj/images/dashboard.png)
+// Extract Panel
+![Extract](/bank_proj/images/extract.png) 
+// Transfer Panel
+![Transfer](/bank_proj/images/transfer.png)
+// Deposit Panel
+![Deposit](/bank_proj/images/deposit.png)
+// Balance Panel
+![Balance](/bank_proj/images/balance.png)
+// Blocks Panel
+![Blocks](/bank_proj/images/blocks.png)
 
 ---
 
