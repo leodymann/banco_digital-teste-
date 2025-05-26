@@ -1,4 +1,4 @@
-# Banco Digital com Blockchain Simplificada // Digital Banking with Simplified Blockchain
+# Banco Digital com Blockchain Simplificada // Digital Banking with Simplified Blockchain <br>
 
 [Pt-Br]
 > **"Simulação de BLOCKCHAIN com foco na IMUTABILIDADE das transações."**<br>
